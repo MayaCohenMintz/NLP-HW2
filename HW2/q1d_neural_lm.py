@@ -13,7 +13,7 @@ from q1c_neural import forward, forward_backward_prop
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 VOCAB_EMBEDDING_PATH = "data/lm/vocab.embeddings.glove.txt"
 BATCH_SIZE = 50
-NUM_OF_SGD_ITERATIONS = 40000
+NUM_OF_SGD_ITERATIONS = 100 #40000
 LEARNING_RATE = 0.3
 
 
@@ -121,6 +121,11 @@ if __name__ == "__main__":
     # Load the vocabulary
     # "C:/Users/Maya/NLP_HW2/NLP-HW2/HW2/data/lm/vocab.ptb.txt"
     # 
+    # if os.path.exists("wikipedia_for_perplexity.txt"):
+    #     print("wiki exists!")
+    # if os.path.exists("shakespeare_for_perplexity.txt"):
+    #     print("shakes exists!")
+
     vocab = pd.read_table("data/lm/vocab.ptb.txt",
                           header=None, sep="\s+", index_col=0, names=['count', 'freq'], )
     
@@ -165,9 +170,17 @@ if __name__ == "__main__":
     perplexity = eval_neural_lm('data/lm/ptb-dev.txt')
     print(f"dev perplexity : {perplexity}")
 
-    # Evaluate perplexity with test-data (only at test time!)
-    if os.path.exists('data/lm/ptb-test.txt'):
-        perplexity = eval_neural_lm('data/lm/ptb-test.txt')
-        print(f"test perplexity : {perplexity}")
+    # Evaluate perplexity with test-data for shakespeare 
+    if os.path.exists('shakespeare_for_perplexity.txt'):
+        perplexity = eval_neural_lm('shakespeare_for_perplexity.txt')
+        print(f"shakespeare test perplexity : {perplexity}")
     else:
         print("test perplexity will be evaluated only at test time!")
+    # Evaluate perplexity with test-data for wikipedia 
+    if os.path.exists("wikipedia_for_perplexity.txt"):
+        perplexity = eval_neural_lm("wikipedia_for_perplexity.txt")
+        print(f"wikipedia test perplexity : {perplexity}")
+    else:
+        print("test perplexity will be evaluated only at test time!")
+    #next step: add the q3 load_data function like roy, then run. when it works, change iterations back to
+    # its original value. 
