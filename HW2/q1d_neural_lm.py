@@ -118,8 +118,10 @@ def eval_neural_lm(eval_data_path):
 
 if __name__ == "__main__":
     # Load the vocabulary
-    vocab = pd.read_table("data/lm/vocab.ptb.txt",
+    # data/lm/vocab.ptb.txt
+    vocab = pd.read_table("C:/Users/Maya/NLP_HW2/NLP-HW2/HW2/data/lm/vocab.ptb.txt",
                           header=None, sep="\s+", index_col=0, names=['count', 'freq'], )
+    
 
     vocabsize = 2000
     num_to_word = dict(enumerate(vocab.index[:vocabsize]))
