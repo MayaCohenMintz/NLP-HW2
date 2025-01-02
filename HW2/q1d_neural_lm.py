@@ -9,7 +9,8 @@ from data_utils import utils
 from sgd import sgd
 from q1c_neural import forward, forward_backward_prop
 
-
+# Set the working directory to the path where your script is located
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
 VOCAB_EMBEDDING_PATH = "data/lm/vocab.embeddings.glove.txt"
 BATCH_SIZE = 50
 NUM_OF_SGD_ITERATIONS = 40000
@@ -118,8 +119,9 @@ def eval_neural_lm(eval_data_path):
 
 if __name__ == "__main__":
     # Load the vocabulary
-    # data/lm/vocab.ptb.txt
-    vocab = pd.read_table("C:/Users/Maya/NLP_HW2/NLP-HW2/HW2/data/lm/vocab.ptb.txt",
+    # "C:/Users/Maya/NLP_HW2/NLP-HW2/HW2/data/lm/vocab.ptb.txt"
+    # 
+    vocab = pd.read_table("data/lm/vocab.ptb.txt",
                           header=None, sep="\s+", index_col=0, names=['count', 'freq'], )
     
 

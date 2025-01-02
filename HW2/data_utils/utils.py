@@ -1,6 +1,9 @@
 import re
 
 import numpy as np
+import os
+# Set the working directory to the path where your script is located
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 
 def invert_dict(d):
