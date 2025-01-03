@@ -13,7 +13,7 @@ from q1c_neural import forward, forward_backward_prop
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 VOCAB_EMBEDDING_PATH = "data/lm/vocab.embeddings.glove.txt"
 BATCH_SIZE = 50
-NUM_OF_SGD_ITERATIONS = 100 #40000
+NUM_OF_SGD_ITERATIONS = 1000 #40000
 LEARNING_RATE = 0.3
 
 
@@ -45,7 +45,7 @@ def load_data_as_sentences(path, word_to_num):
     S_data = utils.docs_to_indices(docs_data, word_to_num)
     return docs_data, S_data
 
-def load_data_as_sentences_q3d(path, word_to_num):
+def load_data_as_sentences_q3c(path, word_to_num):
     """
     This function is used in q3d only!
     Converts the training data to an array of integer arrays.
@@ -137,14 +137,14 @@ def eval_neural_lm(eval_data_path):
     return perplexity
 
 
-def eval_neural_lm_q3d(eval_data_path):
+def eval_neural_lm_q3c(eval_data_path):
     """
     This function is used in q3d only!
     It is identical to the original eval_neural_lm function, but uses the q3d load function in order
     to deal with the format of shakespeare and wikipedia texts. 
     Evaluate perplexity (use dev set when tuning and test at the end)
     """
-    _, S_dev = load_data_as_sentences_q3d(eval_data_path, word_to_num)
+    _, S_dev = load_data_as_sentences_q3c(eval_data_path, word_to_num)
     in_word_index, out_word_index = convert_to_lm_dataset(S_dev)
     assert len(in_word_index) == len(out_word_index)
     num_of_examples = len(in_word_index)
@@ -216,13 +216,13 @@ if __name__ == "__main__":
 
     # Evaluate perplexity with test-data for shakespeare 
     if os.path.exists('shakespeare_for_perplexity.txt'):
-        perplexity = eval_neural_lm_q3d('shakespeare_for_perplexity.txt')
+        perplexity = eval_neural_lm_q3c('shakespeare_for_perplexity.txt')
         print(f"shakespeare test perplexity : {perplexity}")
     else:
         print("test perplexity will be evaluated only at test time!")
     # Evaluate perplexity with test-data for wikipedia 
     if os.path.exists("wikipedia_for_perplexity.txt"):
-        perplexity = eval_neural_lm_q3d("wikipedia_for_perplexity.txt")
+        perplexity = eval_neural_lm_q3c("wikipedia_for_perplexity.txt")
         print(f"wikipedia test perplexity : {perplexity}")
     else:
         print("test perplexity will be evaluated only at test time!")
