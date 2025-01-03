@@ -45,6 +45,26 @@ def load_data_as_sentences(path, word_to_num):
     S_data = utils.docs_to_indices(docs_data, word_to_num)
     return docs_data, S_data
 
+def load_data_as_sentences_q3d(path, word_to_num):
+    """
+    This function is used in q3d only!
+    Converts the training data to an array of integer arrays.
+      args:
+        path: string pointing to the training data - in this case shakespeare / wikipedia _for_perplexity
+        word_to_num: A dictionary from string words to integers
+      returns:
+        An array of integer arrays. Each array is a sentence and each
+        integer is a word.
+    """
+    docs_data = [] 
+    with open(path, "r") as file:
+        cleaned_data = file.read().replace(",", "").replace("\n", " ").replace(";", "").replace(":", "")
+        data_by_sentences = cleaned_data.split(".") # assuming sentences are split by "." and not by new lines
+    for sentence in data_by_sentences:
+        docs_data.append([[word] for word in sentence.split(" ") if word != ''])
+    S_data = utils.docs_to_indices(docs_data, word_to_num)
+    return docs_data, S_data
+
 
 def convert_to_lm_dataset(S):
     """
@@ -101,6 +121,30 @@ def eval_neural_lm(eval_data_path):
     Evaluate perplexity (use dev set when tuning and test at the end)
     """
     _, S_dev = load_data_as_sentences(eval_data_path, word_to_num)
+    in_word_index, out_word_index = convert_to_lm_dataset(S_dev)
+    assert len(in_word_index) == len(out_word_index)
+    num_of_examples = len(in_word_index)
+
+    perplexity = 0
+    ### YOUR CODE HERE
+    for i in range(num_of_examples):
+        input_word = num_to_word_embedding[in_word_index[i]]
+        perplexity += np.log2(forward(input_word, out_word_index[i], params, dimensions))
+    perplexity /= num_of_examples
+    perplexity = 2 ** (-perplexity)
+    ### END YOUR CODE
+
+    return perplexity
+
+
+def eval_neural_lm_q3d(eval_data_path):
+    """
+    This function is used in q3d only!
+    It is identical to the original eval_neural_lm function, but uses the q3d load function in order
+    to deal with the format of shakespeare and wikipedia texts. 
+    Evaluate perplexity (use dev set when tuning and test at the end)
+    """
+    _, S_dev = load_data_as_sentences_q3d(eval_data_path, word_to_num)
     in_word_index, out_word_index = convert_to_lm_dataset(S_dev)
     assert len(in_word_index) == len(out_word_index)
     num_of_examples = len(in_word_index)
