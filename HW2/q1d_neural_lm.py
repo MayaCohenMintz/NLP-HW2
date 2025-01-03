@@ -57,7 +57,7 @@ def load_data_as_sentences_q3d(path, word_to_num):
         integer is a word.
     """
     docs_data = [] 
-    with open(path, "r") as file:
+    with open(path, "r", encoding="utf-8") as file: # specified encoding
         cleaned_data = file.read().replace(",", "").replace("\n", " ").replace(";", "").replace(":", "")
         data_by_sentences = cleaned_data.split(".") # assuming sentences are split by "." and not by new lines
     for sentence in data_by_sentences:
@@ -216,13 +216,13 @@ if __name__ == "__main__":
 
     # Evaluate perplexity with test-data for shakespeare 
     if os.path.exists('shakespeare_for_perplexity.txt'):
-        perplexity = eval_neural_lm('shakespeare_for_perplexity.txt')
+        perplexity = eval_neural_lm_q3d('shakespeare_for_perplexity.txt')
         print(f"shakespeare test perplexity : {perplexity}")
     else:
         print("test perplexity will be evaluated only at test time!")
     # Evaluate perplexity with test-data for wikipedia 
     if os.path.exists("wikipedia_for_perplexity.txt"):
-        perplexity = eval_neural_lm("wikipedia_for_perplexity.txt")
+        perplexity = eval_neural_lm_q3d("wikipedia_for_perplexity.txt")
         print(f"wikipedia test perplexity : {perplexity}")
     else:
         print("test perplexity will be evaluated only at test time!")
