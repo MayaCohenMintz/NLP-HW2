@@ -13,7 +13,7 @@ from q1c_neural import forward, forward_backward_prop
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 VOCAB_EMBEDDING_PATH = "data/lm/vocab.embeddings.glove.txt"
 BATCH_SIZE = 50
-NUM_OF_SGD_ITERATIONS = 1000 #40000
+NUM_OF_SGD_ITERATIONS = 40000
 LEARNING_RATE = 0.3
 
 
@@ -47,7 +47,7 @@ def load_data_as_sentences(path, word_to_num):
 
 def load_data_as_sentences_q3c(path, word_to_num):
     """
-    This function is used in q3d only!
+    This function is used in q3c only!
     Converts the training data to an array of integer arrays.
       args:
         path: string pointing to the training data - in this case shakespeare / wikipedia _for_perplexity
@@ -57,9 +57,11 @@ def load_data_as_sentences_q3c(path, word_to_num):
         integer is a word.
     """
     docs_data = [] 
-    with open(path, "r", encoding="utf-8") as file: # specified encoding
+    with open(path, "r", encoding="utf-8") as file: # specified encoding to ensure wikipedia file
+        # can be read
         cleaned_data = file.read().replace(",", "").replace("\n", " ").replace(";", "").replace(":", "")
-        data_by_sentences = cleaned_data.split(".") # assuming sentences are split by "." and not by new lines
+        data_by_sentences = cleaned_data.split(".") # assuming sentences are split by 
+        # "." and not by new lines
     for sentence in data_by_sentences:
         docs_data.append([[word] for word in sentence.split(" ") if word != ''])
     S_data = utils.docs_to_indices(docs_data, word_to_num)
@@ -139,7 +141,7 @@ def eval_neural_lm(eval_data_path):
 
 def eval_neural_lm_q3c(eval_data_path):
     """
-    This function is used in q3d only!
+    This function is used in q3c only!
     It is identical to the original eval_neural_lm function, but uses the q3d load function in order
     to deal with the format of shakespeare and wikipedia texts. 
     Evaluate perplexity (use dev set when tuning and test at the end)
