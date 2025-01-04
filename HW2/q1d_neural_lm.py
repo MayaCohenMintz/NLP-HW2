@@ -216,17 +216,28 @@ if __name__ == "__main__":
     perplexity = eval_neural_lm('data/lm/ptb-dev.txt')
     print(f"dev perplexity : {perplexity}")
 
-    # Evaluate perplexity with test-data for shakespeare 
+    # Evaluate perplexity with test-data for shakespeare - no PP
+    if os.path.exists('shakespeare_for_perplexity.txt'):
+        perplexity = eval_neural_lm('shakespeare_for_perplexity.txt')
+        print(f"shakespeare test perplexity without PP: {perplexity}")
+    if os.path.exists("wikipedia_for_perplexity.txt"):
+        perplexity = eval_neural_lm("wikipedia_for_perplexity.txt")
+        print(f"wikipedia test perplexity without PP: {perplexity}")
+
+
+    ### Q3D ###
+
+    # Evaluate perplexity with test-data for shakespeare - after PP
     if os.path.exists('shakespeare_for_perplexity.txt'):
         perplexity = eval_neural_lm_q3c('shakespeare_for_perplexity.txt')
-        print(f"shakespeare test perplexity : {perplexity}")
+        print(f"shakespeare test perplexity after PP: {perplexity}")
     else:
         print("test perplexity will be evaluated only at test time!")
-    # Evaluate perplexity with test-data for wikipedia 
+    # Evaluate perplexity with test-data for wikipedia - after PP
     if os.path.exists("wikipedia_for_perplexity.txt"):
         perplexity = eval_neural_lm_q3c("wikipedia_for_perplexity.txt")
-        print(f"wikipedia test perplexity : {perplexity}")
+        print(f"wikipedia test perplexity after PP: {perplexity}")
     else:
         print("test perplexity will be evaluated only at test time!")
-    #next step: add the q3 load_data function like roy, then run. when it works, change iterations back to
-    # its original value. 
+    #next step: run with the original load func like Noa said in forum. 
+    # then, edit my answer to 3c and 3d according to it. 
