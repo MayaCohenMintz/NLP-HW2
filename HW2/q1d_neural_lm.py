@@ -45,9 +45,9 @@ def load_data_as_sentences(path, word_to_num):
     S_data = utils.docs_to_indices(docs_data, word_to_num)
     return docs_data, S_data
 
-def load_data_as_sentences_q3c(path, word_to_num):
+def load_data_as_sentences_q3d(path, word_to_num):
     """
-    This function is used in q3c only!
+    This function is used in q3d only!
     Converts the training data to an array of integer arrays.
       args:
         path: string pointing to the training data - in this case shakespeare / wikipedia _for_perplexity
@@ -139,9 +139,9 @@ def eval_neural_lm(eval_data_path):
     return perplexity
 
 
-def eval_neural_lm_q3c(eval_data_path):
+def eval_neural_lm_q3d(eval_data_path):
     """
-    This function is used in q3c only!
+    This function is used in q3d only!
     It is identical to the original eval_neural_lm function, but uses the q3d load function in order
     to deal with the format of shakespeare and wikipedia texts. 
     Evaluate perplexity (use dev set when tuning and test at the end)
